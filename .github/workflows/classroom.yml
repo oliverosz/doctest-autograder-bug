@@ -16,11 +16,13 @@ jobs:
       uses: actions/checkout@v4
     - name: pytest
       id: pytest
-      uses: education/autograding-python-grader@v1
+      uses: education/autograding-command-grader@v1
       with:
+        test-name: "pytest"
+        setup-command: "pip install pytest"
         timeout: 1
         max-score: 1
-        setup-command: 'sed -i "s/addopts =/& --ignore=dummy_test.py/" /opt/test-runner/pytest.ini && cat /opt/test-runner/pytest.ini'
+        command: "pytest --color=yes --doctest-modules --doctest-continue-on-failure"
     - name: Autograding Reporter
       uses: education/autograding-grading-reporter@v1
       env:
